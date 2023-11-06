@@ -186,6 +186,10 @@
     <Compile Include="Migrations\202311060447054_AddModelsToDatabase.designer.cs">
       <DependentUpon>202311060447054_AddModelsToDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311060640394_ApplyAnnotationsToTables.cs" />
+    <Compile Include="Migrations\202311060640394_ApplyAnnotationsToTables.designer.cs">
+      <DependentUpon>202311060640394_ApplyAnnotationsToTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -274,6 +278,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\PurchaseHistory\Index.cshtml" />
     <Content Include="Views\Rate\Index.cshtml" />
+    <Content Include="Views\Manufacturer\ManufacturerForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -311,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311060447054_AddModelsToDatabase.resx">
       <DependentUpon>202311060447054_AddModelsToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311060640394_ApplyAnnotationsToTables.resx">
+      <DependentUpon>202311060640394_ApplyAnnotationsToTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

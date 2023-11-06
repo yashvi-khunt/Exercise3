@@ -21,11 +21,11 @@ namespace Exercise3.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
-        DbSet<Manufacturer> Manufacturers { get; set; }
-        DbSet<Product> Products { get; set; }
-        DbSet<Rate> Rates { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Rate> Rates { get; set; }
 
-        DbSet<PurchaseHistory> purchaseHistories { get; set; }
+        public DbSet<PurchaseHistory> purchaseHistories { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

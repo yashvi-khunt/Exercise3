@@ -1,7 +1,29 @@
-﻿
+﻿@model IEnumerable<Exercise3.Models.Manufacturer>
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Manufacturer - Index</h2>
+<h3 class="title">Manufacturer List</h3>
+<div>
+    @Html.ActionLink("Add Manufacturer", "Add", "Manufacturer", null, new { @class = "btn btn-warning mx-3 float-right" })
+</div>
+
+<table class="table table-bordered table-hover m-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Manufacturers</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var manufacturer in Model)
+        {
+            <tr>
+                @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
+                <td>@manufacturer.Id</td>
+                <td>@manufacturer.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
 

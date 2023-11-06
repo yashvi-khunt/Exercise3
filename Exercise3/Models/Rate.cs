@@ -9,7 +9,7 @@ namespace Exercise3.Models
     {
 
         public int Id { get; set; }
-        public string Amount { get; set; }
+        public float Amount { get; set; }
 
         public DateTime Date { get; set; } 
         public Product Product { get; set; }

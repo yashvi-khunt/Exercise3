@@ -1,0 +1,16 @@
+﻿@model Exercise3.Models.Manufacturer
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2 class="title">Add Manufacturer</h2>
+@using (Html.BeginForm("Save","Manufacturer"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+
+    </div>
+    <button type="submit" class=" btn btn-success" >Submit</button>
+}
