@@ -1,6 +1,9 @@
 ﻿using Exercise3.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web;
@@ -31,7 +34,8 @@ namespace Exercise3.Controllers
 
         public ActionResult Add()
         {
-            return View("ManufacturerForm");
+            var manufacturer = new Manufacturer();
+            return View("ManufacturerForm",manufacturer);
         }
 
         [HttpPost]
@@ -39,10 +43,11 @@ namespace Exercise3.Controllers
         {
             if (!ModelState.IsValid)
             {
+                
                 return View("ManufacturerForm", manufacturer);
             }
-
-            if (manufacturer.Id == 0)
+            
+            if (manufacturer.Id == 0) 
             {
                 _context.Manufacturers.Add(manufacturer);
             }
@@ -51,7 +56,14 @@ namespace Exercise3.Controllers
                 var manufacturerInDb = _context.Manufacturers.Single(m => m.Id == manufacturer.Id);
                 manufacturerInDb.Name = manufacturer.Name;
             }
-            _context.SaveChanges();
+            try { 
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
             return RedirectToAction("Index", "Manufacturer");
         }
 
