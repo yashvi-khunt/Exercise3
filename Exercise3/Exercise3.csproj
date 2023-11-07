@@ -190,6 +190,10 @@
     <Compile Include="Migrations\202311060640394_ApplyAnnotationsToTables.designer.cs">
       <DependentUpon>202311060640394_ApplyAnnotationsToTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311061235586_AddUniqueKeys.cs" />
+    <Compile Include="Migrations\202311061235586_AddUniqueKeys.designer.cs">
+      <DependentUpon>202311061235586_AddUniqueKeys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -319,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311060640394_ApplyAnnotationsToTables.resx">
       <DependentUpon>202311060640394_ApplyAnnotationsToTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311061235586_AddUniqueKeys.resx">
+      <DependentUpon>202311061235586_AddUniqueKeys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

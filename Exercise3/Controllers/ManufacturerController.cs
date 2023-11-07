@@ -24,7 +24,7 @@ namespace Exercise3.Controllers
         // GET: Manufacturer
         public ViewResult Index()
         {
-            var manufacturer = _context.Manufacturers.ToList();
+            var manufacturer = _context.Manufacturers.Where(m => m.IsDeleted == false).ToList();
 
             return View(manufacturer);
         }
@@ -37,7 +37,43 @@ namespace Exercise3.Controllers
         [HttpPost]
         public ActionResult Save(Manufacturer manufacturer)
         {
-            _context.Manufacturers.Add(manufacturer);
+            if (!ModelState.IsValid)
+            {
+                return View("ManufacturerForm", manufacturer);
+            }
+
+            if (manufacturer.Id == 0)
+            {
+                _context.Manufacturers.Add(manufacturer);
+            }
+            else
+            {
+                var manufacturerInDb = _context.Manufacturers.Single(m => m.Id == manufacturer.Id);
+                manufacturerInDb.Name = manufacturer.Name;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Manufacturer");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var manufacturer = _context.Manufacturers.SingleOrDefault(m => m.Id == id);
+
+            if (manufacturer == null)
+                return HttpNotFound();
+
+            return View("ManufacturerForm", manufacturer);
+
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var manufacturer = _context.Manufacturers.SingleOrDefault(m => m.Id == id);
+
+            if (manufacturer == null)
+                return HttpNotFound();
+
+            manufacturer.IsDeleted = true;
             _context.SaveChanges();
             return RedirectToAction("Index", "Manufacturer");
         }
