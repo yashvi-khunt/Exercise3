@@ -43,7 +43,6 @@ namespace Exercise3.Controllers
         {
             if (!ModelState.IsValid)
             {
-                
                 return View("ManufacturerForm", manufacturer);
             }
             

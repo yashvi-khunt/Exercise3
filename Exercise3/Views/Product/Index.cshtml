@@ -18,7 +18,6 @@ else
             <tr>
                 <th>#</th>
                 <th>Products</th>
-                <th>Rate</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -30,9 +29,9 @@ else
                     <td>@product.Id</td>
                     <td>@product.Name</td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "Manufacturer", new { id = product.Id }, new { @class = "btn btn-info mx-1 btn-sm" })
+                        @Html.ActionLink("Edit", "Edit", "Product", new { id = product.Id }, new { @class = "btn btn-info mx-1 btn-sm" })
 
-                        @Html.ActionLink("Delete", "Delete", "Manufacturer", new { id = product.Id }, new { @class = "btn btn-danger mx-1 btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", "Product", new { id = product.Id }, new { @class = "btn btn-danger mx-1 btn-sm" })
                     </td>
                 </tr>
             }
