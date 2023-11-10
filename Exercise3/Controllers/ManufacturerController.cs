@@ -65,7 +65,7 @@ namespace Exercise3.Controllers
             
             return RedirectToAction("Index", "Manufacturer");
         }
-
+        
         public ActionResult Edit(int id)
         {
             var manufacturer = _context.Manufacturers.SingleOrDefault(m => m.Id == id);
@@ -77,6 +77,7 @@ namespace Exercise3.Controllers
 
         }
 
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             var manufacturer = _context.Manufacturers.SingleOrDefault(m => m.Id == id);

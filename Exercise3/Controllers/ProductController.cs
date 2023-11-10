@@ -57,6 +57,7 @@ namespace Exercise3.Controllers
             return View("ProductForm", viewModel);
         }
 
+        [HttpPost]
         public ActionResult Save(Product product)
         {
             if(!ModelState.IsValid)

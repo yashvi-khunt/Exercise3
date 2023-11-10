@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Security.Permissions;
@@ -11,8 +13,10 @@ namespace Exercise3.Models
     {
         public int Id {  get; set; }
         public int InvoiceId { get; set; }
-
+        [ForeignKey("AspNetUserId")]
         public ApplicationUser User { get; set; }
+        [Display(Name = "UserName")]
+        public string AspNetUserId { get; set; }
 
         public Manufacturer Manufacturer { get; set; }
         public int ManufacturerId { get; set; }
@@ -24,7 +28,8 @@ namespace Exercise3.Models
         public int RateId { get; set; }
 
         public int Quantity {  get; set; }
-        public DateTime Date { get; set; }
+        [Required]
+        public DateTime? Date { get; set; }
 
         public bool IsDeleted { get; set; }
 

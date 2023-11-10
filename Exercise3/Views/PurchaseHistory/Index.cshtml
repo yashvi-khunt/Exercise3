@@ -1,7 +1,41 @@
-﻿
+﻿@model IEnumerable<Exercise3.Models.PurchaseHistory>
 @{
     ViewBag.Title = "Index";
 }
+<h3 class="title">Purchase History</h3>
+<div>
+    @Html.ActionLink("Add Invoice", "Add", "PurchaseHistory", null, new { @class = "btn btn-warning mx-3" })
+</div>
+@if (!Model.Any())
+{
+    <p>No Data Available</p>
+}
+else
+{
+    <table class="table table-bordered table-hover m-3">
+        <thead>
+            <tr>
+                <th>Bill No.</th>
+                <th>Users</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ph in Model)
+            {
+                <tr>
+                    @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
+                    <td>@ph.InvoiceId</td>
+                    <td>@ph.User</td>
+                    <td>@ph.Date.Value.ToShortDateString()</td>
+                    <td>
+                        @Html.ActionLink("View Details", "View", "PurchaseHistory", new { id = ph.InvoiceId  }, new { @class = "btn btn-info mx-1 btn-sm" })
 
-<h2>PurchaseHistory - Index</h2>
-
+                        @Html.ActionLink("Delete", "Delete", "PurchaseHistory", new { id = ph.InvoiceId }, new { @class = "btn btn-danger mx-1 btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

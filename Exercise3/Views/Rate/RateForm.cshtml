@@ -1,0 +1,32 @@
+﻿@model Exercise3.ViewModel.RateFormViewModel
+@{
+    ViewBag.Title = "RateForm";
+}
+
+<h2 class="title"> Rate Form</h2>
+
+@using (Html.BeginForm("Save", "Rate"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rate.ProductId)
+        @Html.DropDownListFor(m => m.Rate.ProductId, new SelectList(Model.Products, "Id", "Name"), "Select Product", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Rate.ProductId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rate.Amount)
+        @Html.TextBoxFor(m => m.Rate.Amount, new {type="float", @class = "form-control", @placeholder = "Enter Rate" })
+        @Html.ValidationMessageFor(m => m.Rate.Amount)
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rate.Date)
+        @Html.TextBoxFor(m => m.Rate.Date, "{0:dd-MM-yyyy}", new { @class = "form-control",@placeholder = DateTime.Today.ToShortDateString()})
+        @Html.ValidationMessageFor(m => m.Rate.Date)
+    </div>
+
+    @Html.HiddenFor(m => m.Rate.Id)
+    <button type="submit" class=" btn btn-success">Submit</button>
+}
+
+
