@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Exercise3.Models.PurchaseHistory>
+﻿@model List<Exercise3.Models.PurchaseHistory>
 @{
     ViewBag.Title = "Index";
 }
@@ -27,10 +27,10 @@ else
                 <tr>
                     @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
                     <td>@ph.InvoiceId</td>
-                    <td>@ph.User</td>
+                    <td>@ph.User.UserName</td>
                     <td>@ph.Date.Value.ToShortDateString()</td>
                     <td>
-                        @Html.ActionLink("View Details", "View", "PurchaseHistory", new { id = ph.InvoiceId  }, new { @class = "btn btn-info mx-1 btn-sm" })
+                        @Html.ActionLink("View Details", "Details", "PurchaseHistory", new { id = ph.InvoiceId  }, new { @class = "btn btn-info mx-1 btn-sm" })
 
                         @Html.ActionLink("Delete", "Delete", "PurchaseHistory", new { id = ph.InvoiceId }, new { @class = "btn btn-danger mx-1 btn-sm" })
                     </td>

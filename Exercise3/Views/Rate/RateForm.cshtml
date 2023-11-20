@@ -5,7 +5,7 @@
 
 <h2 class="title"> Rate Form</h2>
 
-@using (Html.BeginForm("Save", "Rate"))
+@using (Html.BeginForm("Save", "Rate", new { id = "InvoiceForm" }))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Rate.ProductId)

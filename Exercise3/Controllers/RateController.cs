@@ -75,7 +75,14 @@ namespace Exercise3.Controllers
                 return HttpNotFound();
 
             rate.IsDeleted = true;
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return RedirectToAction("Index", "Rate");
 
         }

@@ -5,8 +5,70 @@
 
 <h2 class="title">Invoice Form</h2>
 
-@using (Html.BeginForm("Save", "PurchaseHistory"))
+@using (Html.BeginForm("Save", "PurchaseHistory", new { id = "form" }))
 {
+    <div class="form-group">
+        @Html.LabelFor(m => m.Invoice.AspNetUserId)
+        @Html.DropDownListFor(m => m.Invoice.AspNetUserId, new SelectList(Model.Users, "Id", "UserName"), "Select User", new { @id = "ddUser", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Invoice.AspNetUserId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Invoice.ManufacturerId)
+        @Html.DropDownListFor(m => m.Invoice.ManufacturerId, new SelectList(Model.Manufacturers, "Id", "Name"), "Select Manufacturer", new { @id = "ddManufacturer", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Invoice.ManufacturerId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Invoice.Product)
+        @Html.DropDownListFor(m => m.Invoice.ProductId, new SelectList(Model.Products, "Id", "Name"), "Select Product", new { @id = "ddProduct", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Invoice.ManufacturerId)
+    </div>
 
+    <div id="divRate" class="form-group">
+        @Html.LabelFor(m => m.Invoice.Rate)
+        @Html.TextBoxFor(m => m.Invoice.Rate, new { type = "float", @id = "txtRate", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Invoice.Date)
+        @Html.TextBoxFor(m => m.Invoice.Date, "{0:dd-MM-yyyy}", new { @id = "txtDate", @class = "form-control", @Value = DateTime.Today.ToShortDateString() })
+        @Html.ValidationMessageFor(m => m.Invoice.Date)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Invoice.Quantity)
+        @Html.TextBoxFor(m => m.Invoice.Quantity, "", new { @id = "txtQuantity", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Invoice.Quantity)
+    </div>
+    <button type="button" id="btnGenerateInvoice" class=" btn btn-success">Generate Invoice</button>
+    <div id="dataDiv">
+        <div class="row m-3">
+            <div class="col">
+                <label>Bill No: </label><label id="lblInvoice">101</label>
+            </div>
+            <div class="col">
+                <label>Customer: </label><label id="lblUser">abc</label>
+            </div>
+            <div class="col">
+                <label>Date: </label><label id="lblDate">11-10-2020</label>
+            </div>
+        </div>
+        <table id="dataTable" class="table table-bordered table-hover m-3">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Manufacrturer</th>
+                    <th>Rate</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    @Html.HiddenFor(m => m.TableData, new { @id = "hdnTableData" })
+    <button type="submit" id="btnCloseInvoice" class=" btn btn-danger">Close Invoice</button>
+    </div>
 }
 
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/Script.js"></script>

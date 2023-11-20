@@ -15,10 +15,11 @@ namespace Exercise3.Models
         public int InvoiceId { get; set; }
         [ForeignKey("AspNetUserId")]
         public ApplicationUser User { get; set; }
-        [Display(Name = "UserName")]
+        [Display(Name = "User Name")]
         public string AspNetUserId { get; set; }
 
         public Manufacturer Manufacturer { get; set; }
+        [Display(Name = "Manufacturer")]
         public int ManufacturerId { get; set; }
 
         public Product Product { get; set; }
@@ -26,7 +27,7 @@ namespace Exercise3.Models
 
         public Rate Rate { get; set; }
         public int RateId { get; set; }
-
+        [Required]
         public int Quantity {  get; set; }
         [Required]
         public DateTime? Date { get; set; }

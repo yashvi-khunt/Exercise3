@@ -1,6 +1,8 @@
 ﻿using Exercise3.Models;
 using Exercise3.ViewModel;
+using Newtonsoft.Json;
 using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -24,8 +26,40 @@ namespace Exercise3.Controllers
         // GET: PurchaseHistory
         public ActionResult Index()
         {
-            var history = _context.purchaseHistories.ToList();
-            return View(history);
+            var purchaseHistories = _context.purchaseHistories.Where(ph=>ph.IsDeleted == false)
+       .GroupBy(ph => new { ph.InvoiceId, ph.User.UserName, ph.Date })
+       .Select(group => group.FirstOrDefault())
+       .Include(ph => ph.User);
+
+            return View(purchaseHistories.ToList());
+            
+        }
+
+        public ActionResult Details(int id)
+        {
+            var ph = _context.purchaseHistories.Where(p=>p.InvoiceId == id).Include(m=>m.User).Include(m=>m.Manufacturer).Include(m=>m.Product).Include(m=>m.Rate).ToList();
+            return View("Details",ph);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var ph = _context.purchaseHistories.Where(p => p.InvoiceId == id).ToList();
+            if(ph == null)
+               return HttpNotFound();
+
+            foreach(var p in ph)
+                p.IsDeleted = true;
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return RedirectToAction("Index");
+            
         }
 
         public ActionResult Add()
@@ -33,33 +67,73 @@ namespace Exercise3.Controllers
             var viewModel = new InvoiceFormViewModel
             {
                 Invoice = new PurchaseHistory(),
-                Manufacturers = _context.Manufacturers.ToList(),
+                Manufacturers = _context.Manufacturers.Where(m => m.IsDeleted == false).ToList(),
                 Products = _context.Products.ToList(),
                 Users = _context.Users.ToList(),
             };
             return View("InvoiceForm", viewModel);
         }
 
-        public ActionResult Save(PurchaseHistory history)
+
+
+        [HttpPost]
+        public JsonResult GetProducts(int selectedValue)
         {
-            if (!ModelState.IsValid)
+
+            var products = _context.Products.Where(p => p.ManufacturerId == selectedValue && p.IsDeleted == false).ToList();
+            return Json(products, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetRate(int selectedValue)
+        {
+
+            var rate = (from r in _context.Rates
+                        where r.ProductId == selectedValue
+                        select new { r.Amount, r.Id }).Take(1).ToList();
+            return Json(rate);
+        }
+
+        public ActionResult Save(InvoiceFormViewModel viewModel)
+        {
+            List<TableRowData> tableData = JsonConvert.DeserializeObject<List<TableRowData>>(viewModel.TableData);
+
+            foreach (var row in tableData)
             {
-                var viewModel = new InvoiceFormViewModel
+                PurchaseHistory ph = new PurchaseHistory
                 {
-                    Invoice = history,
-                    Manufacturers = _context.Manufacturers.ToList(),
-                    Users = _context.Users.ToList(),
-                    Products = _context.Products.ToList(),
+                    InvoiceId = row.InvoiceId,
+                    AspNetUserId = row.UserId,
+                    ManufacturerId = row.ManufacturerId,
+                    ProductId = row.ProductId,
+                    RateId = row.RateId,
+                    Quantity = row.Quantity,
+                    Date = DateTime.Parse(row.Date),
                 };
 
-                return View("InvoiceForm", viewModel);
+                _context.purchaseHistories.Add(ph);
             }
 
-            if(history.Id == 0)
+            try
             {
-                _context.purchaseHistories.Add(history);
+                _context.SaveChanges();
             }
-            return RedirectToAction("Index", "PurchaseHistory");
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return RedirectToAction("Index");
         }
+    }
+
+    public class TableRowData
+    {
+        public int InvoiceId { get; set; }
+        public string UserId { get; set; }
+        public int ManufacturerId { get; set; }
+        public int ProductId { get; set; }
+        public int RateId { get; set; }
+        public string Date { get; set; }
+        public int Quantity { get; set; }
     }
 }

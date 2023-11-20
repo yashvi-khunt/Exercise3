@@ -198,6 +198,10 @@
     <Compile Include="Migrations\202311080757122_AddForeignKeyInPurshaceHistory.designer.cs">
       <DependentUpon>202311080757122_AddForeignKeyInPurshaceHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311131513595_AddRolesAndAdmin.cs" />
+    <Compile Include="Migrations\202311131513595_AddRolesAndAdmin.designer.cs">
+      <DependentUpon>202311131513595_AddRolesAndAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -206,6 +210,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PurchaseHistory.cs" />
     <Compile Include="Models\Rate.cs" />
+    <Compile Include="Models\RoleNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\InvoiceFormViewModel.cs" />
@@ -251,6 +256,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -294,6 +300,7 @@
     <Content Include="Views\Product\ProductForm.cshtml" />
     <Content Include="Views\Rate\RateForm.cshtml" />
     <Content Include="Views\PurchaseHistory\InvoiceForm.cshtml" />
+    <Content Include="Views\PurchaseHistory\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311080757122_AddForeignKeyInPurshaceHistory.resx">
       <DependentUpon>202311080757122_AddForeignKeyInPurshaceHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311131513595_AddRolesAndAdmin.resx">
+      <DependentUpon>202311131513595_AddRolesAndAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

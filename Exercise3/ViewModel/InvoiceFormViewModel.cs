@@ -12,5 +12,6 @@ namespace Exercise3.ViewModel
         public IEnumerable<Manufacturer> Manufacturers { get; set; }
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<ApplicationUser> Users { get; set; }
+        public string TableData { get; set; }
     }
 }

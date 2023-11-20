@@ -11,12 +11,13 @@ using System.Web.Mvc;
 
 namespace Exercise3.Controllers
 {
+    //[Authorize(Roles = RoleNames.CanManageCustomemrs)]
     public class ManufacturerController : Controller
     {
         private ApplicationDbContext _context;
 
         public ManufacturerController()
-        {
+        { 
             _context = new ApplicationDbContext();
         }
 

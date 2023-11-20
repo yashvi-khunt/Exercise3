@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Exercise3.Models.PurchaseHistory>
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="text-center">Invoice</h2>
+
+@if (!Model.Any())
+{
+    <p>No Data Available</p>
+}
+else
+{
+    <div>
+        <div class="row m-3">
+            <div class="col">
+                <strong><label>Bill No: </label></strong><label id="lblInvoice">@Model.First().InvoiceId</label>
+            </div>
+            <div class="col">
+                <strong><label>Customer: </label></strong><label id="lblUser">@Model.First().User.UserName</label>
+            </div>
+            <div class="col">
+                <strong><label>Date: </label></strong><label id="lblDate">@Model.First().Date.Value.ToShortDateString()</label>
+            </div>
+        </div>
+        <table id="dataTable" class="table table-bordered table-hover m-3">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Manufacturer</th>
+
+                    <th>Rate</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var ph in Model)
+                {
+                    <tr>
+                        <td>@ph.Product.Name</td>
+                        <td>@ph.Manufacturer.Name</td>
+                        <td>₹ @ph.Rate.Amount</td>
+                        @*<td>@ph.Date.Value.ToShortDateString()</td>*@
+                        <td>@ph.Quantity</td>
+                        <td>₹ @(ph.Rate.Amount * @ph.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @Html.ActionLink("Back", "Index", "PurchaseHistory", null, new { @class = "btn btn-info mx-3" })
+}
+
+

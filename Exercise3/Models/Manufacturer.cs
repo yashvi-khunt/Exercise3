@@ -9,6 +9,7 @@ namespace Exercise3.Models
 {
     public class Manufacturer
     {
+
         public int Id { get; set; }
 
         [Required]

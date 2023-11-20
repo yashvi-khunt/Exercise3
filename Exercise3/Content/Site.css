@@ -44,3 +44,12 @@ textarea {
 .btn{
     text-transform: none;
 }
+
+.row{
+    width: 100%;
+}
+
+.col{
+    display:flex;
+    gap: 7px;
+}
