@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     var tableData = [];
+	 let invId;
 
     //initial state of fields
     $("#ddProduct").prop("disabled", true);
@@ -53,13 +54,14 @@
 
 	//get invoice id
 	const getInvoiceId = function (){
-        const invId;
+        
         $.ajax({
             type: "POST",
             url: "/PurchaseHistory/GetInvoiceId",
             success: function (result) {
                 
-                invId = result[0].Id;
+                //invId = result[0].Id;
+		    invId = result.inv;
                 console.log(invId)
             },
             error: function (error) {
@@ -106,8 +108,8 @@
             newRow.append('<td>' + quantity + '</td>');
             newRow.append('<td>' + total.toFixed(2) + '</td>');
             //newRow.append('<td>' + ' <button type="button" id="btnEditRow" class="btn text-info">Edit</button>' +
-                '<button type="button" id="btnDeleteRow" class="btn text-danger">Delete</button>'
-                + '</td>');
+               // '<button type="button" id="btnDeleteRow" class="btn text-danger">Delete</button>'
+              //  + '</td>');
 
             //2. append row to table body and show labels
             $("#lblInvoice").html(102);
