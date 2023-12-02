@@ -94,6 +94,14 @@ namespace Exercise3.Controllers
             return Json(rate);
         }
 
+        [HttpPost]
+        public JsonResult GetInvoiceId()
+        {
+
+            int inv = _context.purchaseHistories.Max(x => x.InvoiceId)
+            return Json(new {inv},JsonRequestBehavior.AllowGet );
+        }
+
         public ActionResult Save(InvoiceFormViewModel viewModel)
         {
             List<TableRowData> tableData = JsonConvert.DeserializeObject<List<TableRowData>>(viewModel.TableData);
