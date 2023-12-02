@@ -51,12 +51,31 @@
         });
     });
 
+	//get invoice id
+	const getInvoiceId = function (){
+        const invId;
+        $.ajax({
+            type: "POST",
+            url: "/PurchaseHistory/GetInvoiceId",
+            success: function (result) {
+                
+                invId = result[0].Id;
+                console.log(invId)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+        return invId;
+    }
 
+
+     
     //  ---- On btn click og Generate Invoice Btn 
-    $("#dataTable").on("click", "#btnDeleteRow", function () {
+    //$("#dataTable").on("click", "#btnDeleteRow", function () {
         //$(this).closest("tr").remove();
-        console.log($(this).closest("tr"));
-    });
+       // console.log($(this).closest("tr"));
+   // });
 
 
     $("#btnGenerateInvoice").click(function () {
@@ -86,7 +105,7 @@
             newRow.append('<td>' + rate + '</td>');
             newRow.append('<td>' + quantity + '</td>');
             newRow.append('<td>' + total.toFixed(2) + '</td>');
-            newRow.append('<td>' + ' <button type="button" id="btnEditRow" class="btn text-info">Edit</button>' +
+            //newRow.append('<td>' + ' <button type="button" id="btnEditRow" class="btn text-info">Edit</button>' +
                 '<button type="button" id="btnDeleteRow" class="btn text-danger">Delete</button>'
                 + '</td>');
 
@@ -98,7 +117,7 @@
 
             //update hidden field with table data
             var rowData = {
-                InvoiceId: 103,
+                InvoiceId: getInvoiceId(),
                 UserId: $("#ddUser").val(),
                 ManufacturerId: $("#ddManufacturer").val(),
                 ProductId: $("#ddProduct").val(),
