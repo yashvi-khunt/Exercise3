@@ -18,6 +18,8 @@ namespace Exercise3.Models
         public string Name { get; set; }
 
         public bool IsDeleted {  get; set; }
+
+        ICollection<Product> Products { get; set; }
     }
 }
 

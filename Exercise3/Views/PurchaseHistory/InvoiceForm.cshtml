@@ -39,10 +39,14 @@
         @Html.ValidationMessageFor(m => m.Invoice.Quantity)
     </div>
     <button type="button" id="btnGenerateInvoice" class=" btn btn-success">Generate Invoice</button>
+        
     <div id="dataDiv">
+        <div class="row">
+            <div class="col"><label class="note"> Note: Table shown below is for reference only. Please<b> Close Invoice</b> to save your invoice data.</label></div>
+        </div>
         <div class="row m-3">
             <div class="col">
-                <label>Bill No: </label><label id="lblInvoice">101</label>
+                <label>Bill No: </label><label id="lblInvoice"></label>
             </div>
             <div class="col">
                 <label>Customer: </label><label id="lblUser">abc</label>
@@ -59,14 +63,14 @@
                     <th>Rate</th>
                     <th>Quantity</th>
                     <th>Total</th>
-                    <th>Action</th>
+                    @*<th>Action</th>*@
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
-    @Html.HiddenFor(m => m.TableData, new { @id = "hdnTableData" })
-    <button type="submit" id="btnCloseInvoice" class=" btn btn-danger">Close Invoice</button>
+        @Html.HiddenFor(m => m.TableData, new { @id = "hdnTableData" })
+        <button type="submit" id="btnCloseInvoice" class=" btn btn-danger">Close Invoice</button>
     </div>
 }
 

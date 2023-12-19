@@ -53,3 +53,7 @@ textarea {
     display:flex;
     gap: 7px;
 }
+
+.note {
+    color: var(--bs-form-invalid-color);
+}

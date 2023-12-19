@@ -67,7 +67,12 @@ namespace Exercise3.Controllers
             var viewModel = new InvoiceFormViewModel
             {
                 Invoice = new PurchaseHistory(),
-                Manufacturers = _context.Manufacturers.Where(m => m.IsDeleted == false).ToList(),
+                Manufacturers = _context.Manufacturers.Where(m => m.IsDeleted == false).ToList(), 
+                //Manufacturers = _context.Products.Include(m => m.Manufacturer).Where(m => m.IsDeleted == false).GroupBy(m => new Manufacturer{ m.Id, m.Name }).Select(m => new Manufacturer
+                //{
+                //    Id = m.Key.Id,
+                //    Name = m.Key.Name,
+                //}),
                 Products = _context.Products.ToList(),
                 Users = _context.Users.ToList(),
             };
@@ -76,7 +81,7 @@ namespace Exercise3.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost] 
         public JsonResult GetProducts(int selectedValue)
         {
 
@@ -99,7 +104,7 @@ namespace Exercise3.Controllers
         public JsonResult GetInvoiceId()
         {
 
-            int inv = _context.purchaseHistories.Max(x => x.InvoiceId)
+            int inv = _context.purchaseHistories.Max(x => x.InvoiceId);
             return Json(new {inv},JsonRequestBehavior.AllowGet );
         }
 
