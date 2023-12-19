@@ -90,6 +90,7 @@ namespace Exercise3.Controllers
 
             var rate = (from r in _context.Rates
                         where r.ProductId == selectedValue
+                        orderby r.Date descending
                         select new { r.Amount, r.Id }).Take(1).ToList();
             return Json(rate);
         }
