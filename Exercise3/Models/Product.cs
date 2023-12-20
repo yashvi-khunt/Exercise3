@@ -21,5 +21,8 @@ namespace Exercise3.Models
         public int ManufacturerId {  get; set; }
 
         public bool IsDeleted {  get; set; }
+
+        public ICollection<Rate> Rates { get; set; }
+        public ICollection<PurchaseHistory> PurchaseHistorys { get; set; }
     }
 }

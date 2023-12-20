@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Exercise3.Controllers
 {
@@ -26,14 +27,15 @@ namespace Exercise3.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            var products = _context.Products.Where(m => m.IsDeleted == false).ToList();
+            //var products = _context.Products.Where(m => m.IsDeleted == false).ToList();
+            var products = _context.Products.Include(p => p.Manufacturer).Where(p => p.IsDeleted == false && p.Manufacturer.IsDeleted == false).ToList();
             return View(products);
         }
 
         public ActionResult Add() 
         {
             var manufacturers = _context.Manufacturers.ToList();
-            var viewModel = new ProductViewModel
+            var viewModel = new ProductFormViewModel
             {
                 Product = new Product(),
                 Manufacturers = manufacturers
@@ -48,7 +50,7 @@ namespace Exercise3.Controllers
             if(product == null)
                 return HttpNotFound();
 
-            var viewModel = new ProductViewModel
+            var viewModel = new ProductFormViewModel
             {
                 Product = product,
                 Manufacturers = _context.Manufacturers.ToList()
@@ -62,7 +64,7 @@ namespace Exercise3.Controllers
         {
             if(!ModelState.IsValid)
             {
-                var viewModel = new ProductViewModel
+                var viewModel = new ProductFormViewModel
                 {
                     Product = product,
                     Manufacturers = _context.Manufacturers.ToList()

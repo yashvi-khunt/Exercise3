@@ -24,21 +24,9 @@ namespace Exercise3.Controllers
         }
         // GET: Rate
         public ActionResult Index()
-        {
-            var rates = _context.Rates.Where(r=>r.IsDeleted == false).OrderBy(r => r.ProductId).ThenByDescending(r => r.Date).ToList();
-            var vmList = new List<RateViewModel>();
-            foreach (var r in rates)
-            {
-                var viewModel = new RateViewModel
-                {
-                    Rate = r,
-                    Product = _context.Products.Single(p => p.Id == r.ProductId)
-                };
-                vmList.Add(viewModel);
-            }
-
-            //var rates = _context.Rates.ToList();
-            return View(vmList.ToList());
+        {   
+            var rates = _context.Rates.Include(r => r.Product).Include(r => r.Product.Manufacturer).Where(r => r.IsDeleted == false && r.Product.IsDeleted == false && r.Product.Manufacturer.IsDeleted == false).OrderBy(r => r.ProductId).ThenByDescending(r => r.Date).ToList();
+            return View(rates);
         }
 
         public ActionResult Add() 

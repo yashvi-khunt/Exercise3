@@ -1,8 +1,9 @@
-﻿@model IEnumerable<Exercise3.ViewModel.RateViewModel>
+﻿
+@model IEnumerable<Exercise3.Models.Rate>
 @{
     ViewBag.Title = "Index";
 }
-<h3 class="title">Manufacturer List</h3>
+<h3 class="title">Rate List</h3>
 <div>
     @Html.ActionLink("Add Rate", "Add", "Rate", null, new { @class = "btn btn-warning mx-3" })
 </div>
@@ -15,7 +16,7 @@ else
     <table class="table table-bordered table-hover m-3">
         <thead>
             <tr>
-                <th>#</th>
+                @*<th>#</th>*@
                 <th>Products</th>
                 <th>Rates</th>
                 <th>Date</th>
@@ -27,14 +28,14 @@ else
             {
                 <tr>
                     @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
-                    <td>@rate.Rate.Id</td>
+                    @*<td>@rate.Rate.Id</td>*@
                     <td>@rate.Product.Name</td>
-                    <td>₹ @rate.Rate.Amount</td>
-                    <td>@rate.Rate.Date.Value.ToShortDateString()</td>
+                    <td>₹ @rate.Amount</td>
+                    <td>@rate.Date.Value.ToShortDateString()</td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "Rate", new { id = rate.Rate.Id }, new { @class = "btn btn-info mx-1 btn-sm" })
+                        @Html.ActionLink("Edit", "Edit", "Rate", new { id = rate.Id }, new { @class = "btn btn-info mx-1 btn-sm" })
 
-                        @Html.ActionLink("Delete", "Delete", "Rate", new { id = rate.Rate.Id }, new { @class = "btn btn-danger mx-1 btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", "Rate", new { id = rate.Id }, new { @class = "btn btn-danger mx-1 btn-sm" })
                     </td>
                 </tr>
             }

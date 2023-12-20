@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-<h3 class="title">Manufacturer List</h3>
+<h3 class="title">Product List</h3>
 <div>
     @Html.ActionLink("Add Product", "Add", "Product", null, new { @class = "btn btn-warning mx-3" })
 </div>
@@ -16,8 +16,9 @@ else
     <table class="table table-bordered table-hover m-3">
         <thead>
             <tr>
-                <th>#</th>
+                @*<th>#</th>*@
                 <th>Products</th>
+                <th>Manufacturer</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -26,8 +27,9 @@ else
             {
                 <tr>
                     @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
-                    <td>@product.Id</td>
+                    @*<td>@product.Id</td>*@
                     <td>@product.Name</td>
+                    <td>@product.Manufacturer.Name</td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", "Product", new { id = product.Id }, new { @class = "btn btn-info mx-1 btn-sm" })
 

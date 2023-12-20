@@ -16,7 +16,7 @@ else
     <table class="table table-bordered table-hover m-3">
         <thead>
             <tr>
-                <th>#</th>
+                @*<th>#</th>*@
                 <th>Manufacturers</th>
                 <th>Action</th>
             </tr>
@@ -26,7 +26,7 @@ else
             {
                 <tr>
                     @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
-                    <td>@manufacturer.Id</td>
+                    @*<td>@manufacturer.Id</td>*@
                     <td>@manufacturer.Name</td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", "Manufacturer",new { id = manufacturer.Id }, new { @class = "btn btn-info mx-1 btn-sm" })
