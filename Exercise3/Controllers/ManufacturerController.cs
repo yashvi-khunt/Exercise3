@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,13 +12,13 @@ using System.Web.Mvc;
 
 namespace Exercise3.Controllers
 {
-    //[Authorize(Roles = RoleNames.CanManageCustomemrs)]
+    //[Authorize(Roles = RoleNames.CanManageCustomers)]
     public class ManufacturerController : Controller
     {
         private ApplicationDbContext _context;
 
         public ManufacturerController()
-        { 
+        {
             _context = new ApplicationDbContext();
         }
 
@@ -36,7 +37,7 @@ namespace Exercise3.Controllers
         public ActionResult Add()
         {
             var manufacturer = new Manufacturer();
-            return View("ManufacturerForm",manufacturer);
+            return View("ManufacturerForm", manufacturer);
         }
 
         [HttpPost]
@@ -46,8 +47,8 @@ namespace Exercise3.Controllers
             {
                 return View("ManufacturerForm", manufacturer);
             }
-            
-            if (manufacturer.Id == 0) 
+
+            if (manufacturer.Id == 0)
             {
                 _context.Manufacturers.Add(manufacturer);
             }
@@ -56,17 +57,18 @@ namespace Exercise3.Controllers
                 var manufacturerInDb = _context.Manufacturers.Single(m => m.Id == manufacturer.Id);
                 manufacturerInDb.Name = manufacturer.Name;
             }
-            try { 
+            try
+            {
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            
+
             return RedirectToAction("Index", "Manufacturer");
         }
-        
+
         public ActionResult Edit(int id)
         {
             var manufacturer = _context.Manufacturers.SingleOrDefault(m => m.Id == id);
@@ -78,16 +80,25 @@ namespace Exercise3.Controllers
 
         }
 
-        [HttpPost]
+        
         public ActionResult Delete(int id)
         {
-            var manufacturer = _context.Manufacturers.SingleOrDefault(m => m.Id == id);
+            var manufacturer = _context.Manufacturers.Include(m => m.Products).SingleOrDefault(m => m.Id == id);
 
             if (manufacturer == null)
                 return HttpNotFound();
 
-            manufacturer.IsDeleted = true;
-            _context.SaveChanges();
+            foreach (var product in manufacturer.Products)
+            {
+                product.Rates = _context.Rates.Where(r => r.ProductId == product.Id).ToList();
+            }
+
+            manufacturer.MarkDeleted();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex) { Console.WriteLine(ex); }
             return RedirectToAction("Index", "Manufacturer");
         }
     }

@@ -14,7 +14,7 @@ namespace Exercise3.Controllers
 
         private ApplicationDbContext _context;
 
-        public ProductController() 
+        public ProductController()
         {
             _context = new ApplicationDbContext();
         }
@@ -27,12 +27,12 @@ namespace Exercise3.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            //var products = _context.Products.Where(m => m.IsDeleted == false).ToList();
-            var products = _context.Products.Include(p => p.Manufacturer).Where(p => p.IsDeleted == false && p.Manufacturer.IsDeleted == false).ToList();
+            var products = _context.Products.Include(p => p.Manufacturer).Where(m => m.IsDeleted == false).ToList();
+            //var products = _context.Products.Include(p => p.Manufacturer).Where(p => p.IsDeleted == false && p.Manufacturer.IsDeleted == false).ToList();
             return View(products);
         }
 
-        public ActionResult Add() 
+        public ActionResult Add()
         {
             var manufacturers = _context.Manufacturers.ToList();
             var viewModel = new ProductFormViewModel
@@ -47,7 +47,7 @@ namespace Exercise3.Controllers
         {
             var product = _context.Products.SingleOrDefault(p => p.Id == id);
 
-            if(product == null)
+            if (product == null)
                 return HttpNotFound();
 
             var viewModel = new ProductFormViewModel
@@ -62,18 +62,19 @@ namespace Exercise3.Controllers
         [HttpPost]
         public ActionResult Save(Product product)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var viewModel = new ProductFormViewModel
                 {
                     Product = product,
                     Manufacturers = _context.Manufacturers.ToList()
                 };
-                return View("ProductForm",viewModel);
+                return View("ProductForm", viewModel);
             }
-            
 
-            if(product.Id == 0) {
+
+            if (product.Id == 0)
+            {
                 _context.Products.Add(product);
             }
             else
@@ -92,20 +93,24 @@ namespace Exercise3.Controllers
                 Console.WriteLine(ex.Message);
             }
 
-            return RedirectToAction("Index","Product");
+            return RedirectToAction("Index", "Product");
         }
 
 
         public ActionResult Delete(int id)
         {
-            var product = _context.Products.SingleOrDefault(p => p.Id == id);
+            var product = _context.Products.Include(p => p.Rates).SingleOrDefault(p => p.Id == id);
 
             if (product == null)
                 return HttpNotFound();
 
-            product.IsDeleted = true;
-            _context.SaveChanges();
+            product.MarkDeleted();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
             return RedirectToAction("Index", "Product");
         }
     }
-} 
+}

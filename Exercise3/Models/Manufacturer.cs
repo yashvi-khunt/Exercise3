@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exercise3.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,3 +25,26 @@ namespace Exercise3.Models
     }
 }
 
+public static class ManufacturerExtentions
+{
+    public static void MarkDeleted(this Manufacturer manufacturer)
+    {
+        if (manufacturer == null) throw new ArgumentNullException(nameof(manufacturer));
+        manufacturer.IsDeleted = true;
+
+        if(manufacturer.Products != null)
+        {
+            foreach (var product in manufacturer.Products)
+            {
+                product.IsDeleted = true;
+                if(product.Rates != null)
+                {
+                    foreach (var rate in product.Rates)
+                    {
+                        rate.IsDeleted = true;
+                    }
+                }
+            } 
+        }
+    }
+}

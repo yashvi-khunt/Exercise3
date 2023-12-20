@@ -7,6 +7,6 @@ namespace Exercise3.Models
 {
     public class RoleNames
     {
-        public const string CanManageCustomemrs = "CanManageCustomers";
+        public const string CanManageCustomers = "CanManageCustomers";
     }
 }

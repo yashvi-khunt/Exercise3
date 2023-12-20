@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Security;
+﻿using Exercise3.Models;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,5 +25,22 @@ namespace Exercise3.Models
 
         public ICollection<Rate> Rates { get; set; }
         public ICollection<PurchaseHistory> PurchaseHistorys { get; set; }
+    }
+}
+
+public static class ProductExtentions
+{
+    public static void MarkDeleted(this Product product)
+    {
+        if (product == null) throw new ArgumentNullException(nameof(product));
+        product.IsDeleted = true;
+
+        if (product.Rates != null)
+        {
+            foreach (var rate in product.Rates)
+            {
+                rate.IsDeleted = true;
+            }
+        }
     }
 }
