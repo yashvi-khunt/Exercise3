@@ -28,7 +28,7 @@ namespace Exercise3.Models
     }
 }
 
-public static class ProductExtentions
+public static class ProductExtensions
 {
     public static void MarkDeleted(this Product product)
     {

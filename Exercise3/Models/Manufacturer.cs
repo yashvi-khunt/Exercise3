@@ -25,7 +25,7 @@ namespace Exercise3.Models
     }
 }
 
-public static class ManufacturerExtentions
+public static class ManufacturerExtensions
 {
     public static void MarkDeleted(this Manufacturer manufacturer)
     {

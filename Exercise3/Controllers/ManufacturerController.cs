@@ -93,7 +93,8 @@ namespace Exercise3.Controllers
                 product.Rates = _context.Rates.Where(r => r.ProductId == product.Id).ToList();
             }
 
-            manufacturer.MarkDeleted();
+            //manufacturer.MarkDeleted();
+           
             try
             {
                 _context.SaveChanges();
@@ -101,5 +102,16 @@ namespace Exercise3.Controllers
             catch (Exception ex) { Console.WriteLine(ex); }
             return RedirectToAction("Index", "Manufacturer");
         }
+
+        /*
+        public ActionResult Delete(int id)
+        {
+            var manufacturer = _context.Manufacturers.Include(m => m.Products).SingleOrDefault(m => m.Id == id);
+
+            if (manufacturer == null)
+                return HttpNotFound();
+            manufacturer.MarkDeleted<Manufacturer>();
+            return View();
+        }*/
     }
 }
