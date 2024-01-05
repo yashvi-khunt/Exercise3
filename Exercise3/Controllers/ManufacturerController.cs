@@ -93,7 +93,7 @@ namespace Exercise3.Controllers
                 product.Rates = _context.Rates.Where(r => r.ProductId == product.Id).ToList();
             }
 
-            //manufacturer.MarkDeleted();
+            manufacturer.MarkDeleted();
            
             try
             {
